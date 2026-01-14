@@ -1,4 +1,4 @@
-//Este componente usa el hook useCamera y arma toda la interfaz para tomar una foto.
+//Este componente usa el hook useCamera y arma toda la interfaz para tomar una foto, aceptarla o repetirla
 import { useEffect, useState } from "react";
 import useCamera from "../../hooks/useCamera";
 
@@ -14,7 +14,9 @@ export default function CameraStep({
   //encender y apagar camara
   useEffect(() => {
     start({ video: { facingMode } });
-    return () => stop();
+    return () => {
+      stop();
+    };
   }, [facingMode]);
 
   //funcuon para tomar la foto
@@ -22,8 +24,14 @@ export default function CameraStep({
     const dataUrl = capture();
     if (dataUrl) {
       setPreview(dataUrl);
-      onCaptured(dataUrl);
+      // NO llamar a onCaptured aquí, solo guardar la preview
     }
+  };
+
+  const handleAccept = () => {
+    setPreview(null); // Limpia preview primero
+    stop(); // Detén la cámara
+    onCaptured(preview); // Luego notifica al padre
   };
 
   return (
@@ -70,10 +78,7 @@ export default function CameraStep({
             >
               Volver a tomar
             </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => onCaptured(preview)}
-            >
+            <button className="btn btn-primary" onClick={handleAccept}>
               Aceptar
             </button>
           </div>
