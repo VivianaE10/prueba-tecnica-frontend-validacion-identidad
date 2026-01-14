@@ -70,8 +70,17 @@ const StartValidation = () => {
             {error}
           </div>
         )}
-
-        {/* Botón principal */}
+        <div className="alert alert-info small mb-4" role="alert">
+          <strong>Aviso de privacidas </strong>
+          <p className="mb-0">
+            Los datos y las imágenes utilizadas en esta prueba técnica son
+            únicamente para fines de evaluación. Ninguna información es
+            almacenada, persistida, compartida o utilizada con fines
+            comerciales. Las imágenes capturadas se envían exclusivamente al
+            servicio de validación para efectos de la prueba y no son guardadas
+            por el sistema.
+          </p>
+        </div>
         <button className="btn btn-primary btn-lg w-100" type="submit">
           Iniciar Validación
         </button>
