@@ -9,7 +9,7 @@ const useStartValidation = () => {
   const [backImage, setBackImage] = useState(null); // Estado para la imagen trasera del documento
   const [selfieImage, setSelfieImage] = useState(null); // Estado para la imagen selfie del usuario
 
-  // Lógica para iniciar el proceso de validación
+  // Validación inicial: solo ID + consentimiento (para abrir CaptureFlow)
   const handleStartValidation = () => {
     if (!userId) {
       setError("Por favor, ingrese su ID de usuario.");
@@ -19,16 +19,30 @@ const useStartValidation = () => {
       setError("Debe aceptar el consentimiento para continuar.");
       return false;
     }
+    setError(null);
+    return true;
+  };
+
+  // Validación final: ID + consentimiento + 3 imágenes (para enviar al backend)
+  const handleFinalValidation = () => {
+    if (!userId) {
+      setError("Por favor, ingrese su ID de usuario.");
+      return false;
+    }
+    if (!consentGiven) {
+      setError("Debe aceptar el consentimiento para continuar.");
+      return false;
+    }
     if (!frontImage) {
-      setError("Por favor, suba la imagen frontal del documento.");
+      setError("Por favor, capture la imagen frontal de la cédula.");
       return false;
     }
     if (!backImage) {
-      setError("Por favor, suba la imagen trasera del documento.");
+      setError("Por favor, capture la imagen trasera de la cédula.");
       return false;
     }
     if (!selfieImage) {
-      setError("Por favor, suba su selfie.");
+      setError("Por favor, capture su selfie.");
       return false;
     }
     setError(null);
@@ -49,6 +63,7 @@ const useStartValidation = () => {
     error,
     setError,
     handleStartValidation,
+    handleFinalValidation,
   };
 };
 
