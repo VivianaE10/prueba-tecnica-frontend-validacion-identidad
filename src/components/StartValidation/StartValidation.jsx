@@ -71,7 +71,7 @@ const StartValidation = () => {
           </div>
         )}
         <div className="alert alert-info small mb-4" role="alert">
-          <strong>Aviso de privacidas </strong>
+          <strong>Aviso de privacidad </strong>
           <p className="mb-0">
             Los datos y las imágenes utilizadas en esta prueba técnica son
             únicamente para fines de evaluación. Ninguna información es
