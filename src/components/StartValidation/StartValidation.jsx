@@ -3,6 +3,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import useStartValidation from "./useStartValidation";
 import CaptureFlow from "../CaptureFlow/CaptureFlow";
+import ProcessingScreen from "../ProcessingScreen/ProcessingScreen";
 import { useState } from "react";
 
 const StartValidation = () => {
@@ -20,6 +21,8 @@ const StartValidation = () => {
 
   //conectaste el formulario con el flujo de captura
   const [showCapture, setShowCapture] = useState(false);
+  const [showProcessing, setShowProcessing] = useState(false);
+  const [capturedImages, setCapturedImages] = useState(null);
 
   //funcion para validar que el usuario haya llenado el formulario
   const handleSubmit = (e) => {
@@ -33,7 +36,17 @@ const StartValidation = () => {
 
   return (
     <>
-      {showCapture ? ( // hace que la camara no se muestre todavia antes de llenar las validaciones del formulario
+      {showProcessing ? (
+        <ProcessingScreen
+          userId={userId}
+          images={capturedImages}
+          onValidationComplete={(result) => {
+            setShowProcessing(false);
+            setShowCapture(false);
+            // Aquí puedes manejar el resultado (aprobado/rechazado)
+          }}
+        />
+      ) : showCapture ? (
         <CaptureFlow
           onSubmit={(images) => {
             setCapturedImages(images);
@@ -49,7 +62,6 @@ const StartValidation = () => {
             style={{ width: "400px", borderRadius: "15px" }}
           >
             <h2 className="text-center mb-4">Validación de Identidad</h2>
-
             <div className="mb-3">
               <label htmlFor="userId" className="form-label">
                 ID de usuario
@@ -66,7 +78,6 @@ const StartValidation = () => {
                 }}
               />
             </div>
-
             <div className="form-check mb-4">
               <input
                 className="form-check-input"
@@ -83,7 +94,6 @@ const StartValidation = () => {
                 para este proceso de validación.
               </label>
             </div>
-
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}

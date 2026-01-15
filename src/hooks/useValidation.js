@@ -21,7 +21,6 @@ const useValidation = () => {
 
       // Convertir base64 a Blob (archivo)
       // images.front, images.back, images.selfie son dataURLs (base64)
-      formData.append("user_id", userId);
       formData.append("frente", dataURLtoBlob(images.front), "frente.jpg");
       formData.append("reverso", dataURLtoBlob(images.back), "reverso.jpg");
       formData.append("selfie", dataURLtoBlob(images.selfie), "selfie.jpg");

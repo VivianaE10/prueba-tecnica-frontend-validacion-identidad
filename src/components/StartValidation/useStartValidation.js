@@ -2,7 +2,7 @@ import { useState } from "react";
 
 //guardando los valores del usuario
 const useStartValidation = () => {
-  const [userId, setUserId] = useState(""); // Estado para el ID de usuario
+  const [userId, setUserId] = useState("USR-SELLER-1C701FE1"); // Estado para el ID de usuario
   const [consentGiven, setConsentGiven] = useState(false); // Estado para el consentimiento
   const [error, setError] = useState(null); // Estado para errores
   const [frontImage, setFrontImage] = useState(null); // Estado para la imagen frontal del documento
@@ -11,8 +11,8 @@ const useStartValidation = () => {
 
   // Validación inicial: solo ID + consentimiento (para abrir CaptureFlow)
   const handleStartValidation = () => {
-    if (!userId) {
-      setError("Por favor, ingrese su ID de usuario.");
+    if (userId !== "USR-SELLER-1C701FE1") {
+      setError("El ID de usuario no es válido.");
       return false;
     }
     if (!consentGiven) {
