@@ -6,7 +6,14 @@ Prueba técnica Front-End para validación de identidad mediante captura en vivo
 
 - React + Vite
 - React Router
-- Hooks (useState, useEffect)
+- Hooks de React:
+  - useState
+  - useEffect
+  - useRef
+  - useCallback
+- Hooks personalizados:
+  - useCamera (gestión de cámara y captura de imágenes)
+  - useValidation (simulación y manejo de validación de identidad)
 - Fetch
 
 ## 📸 Flujo de la aplicación
@@ -197,16 +204,19 @@ Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload 
 - **Resultado simulado:** Puedes cambiar el valor de `approved` en el objeto `fakeResult` para probar ambos flujos (aprobado/rechazado).
 
 ---
+
 ## ⚠️ NOTAS IMPORTANTES PARA PRUEBAS Y DESARROLLO
 
 > **Nota 1:**
 > En `src/hooks/useValidation.js` puedes **descomentar la línea 18** para forzar y visualizar el manejo de errores en la interfaz de validación.
+>
 > ```js
 > // throw new Error("Simulación de error en validación");
 > ```
 
 > **Nota 2:**
 > En el mismo archivo, **cambia el valor de `approved` a `false` en la línea 70** para probar el flujo de resultado NO aprobado (rechazado).
+>
 > ```js
 > const fakeResult = {
 >   approved: false, // Cambia a true para el caso aprobado
@@ -226,26 +236,18 @@ Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload 
 ### Descripción general
 
 Tras la validación, la app muestra una pantalla de resultado:
+
 - **Aprobado:** Mensaje de éxito y opción de ir al Home.
 - **Rechazado:** Mensaje claro y amigable, opción de reintentar o volver al inicio (NO muestra Home).
 
 #### Componentes clave
+
 - `ResultScreen.jsx`: Muestra el resultado y las acciones según el caso.
 - `Home.jsx`: Pantalla final con mensaje de bienvenida y datos del resultado.
 
 ### Cómo probar ambos casos
+
 - Cambia el valor de `approved` en `useValidation.js` para alternar entre aprobado y rechazado.
 - Usa la línea de error para probar el manejo visual de errores.
 
 ---
-
-## 🪝 Hooks utilizados
-
-- useState
-- useEffect
-- useRef
-- useCallback
-
-### Hooks personalizados
-- useCamera: gestión de cámara y captura de imágenes.
-- useValidation: simulación y manejo de validación de identidad.
