@@ -137,3 +137,67 @@ Al completar las 3 fotos, se muestra un **resumen** con confirmación de todas l
 - `src/components/CaptureFlow/CameraStep.jsx`
 - `src/components/StartValidation/StartValidation.jsx` (integración)
 - `src/components/StartValidation/useStartValidation.js` (validación inicial)
+
+## 📦 Ejecución 3 – Validación y Envío a Backend
+
+### Descripción general
+
+Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload y lo envía a un endpoint de validación. El flujo está desacoplado mediante un **hook personalizado** que permite alternar entre:
+
+- **Simulación de respuesta** (por defecto, para desarrollo y pruebas)
+- **Llamada real al endpoint** (comentada, lista para producción)
+
+### Componentes implementados
+
+#### 1. **useValidation.js** (Hook de validación)
+
+- **Ubicación:** `src/hooks/useValidation.js`
+- **Responsabilidad:** Gestiona el envío de imágenes y el manejo de la respuesta (real o simulada)
+- **Características:**
+  - Prepara un `FormData` con los campos:
+    - `user_id` (string)
+    - `selfie` (archivo)
+    - `cedula_frente` (archivo)
+    - `cedula_reverso` (archivo)
+  - **Simulación:** Por defecto, la función retorna un resultado simulado tras 3 segundos (aprobado/rechazado)
+  - **Llamada real:** El bloque de fetch al endpoint está comentado y listo para activarse
+  - Maneja estados: `loading`, `error`, `success`, `result`
+
+#### 2. **ProcessingScreen.jsx**
+
+- **Ubicación:** `src/components/ProcessingScreen/ProcessingScreen.jsx`
+- **Responsabilidad:** Muestra pantalla de carga y resultado de validación
+- **Características:**
+  - Llama a `validateIdentity` con los datos capturados
+  - Muestra spinner de carga, errores o resultado
+
+#### 3. **StartValidation.jsx**
+
+- **Ubicación:** `src/components/StartValidation/StartValidation.jsx`
+- **Responsabilidad:** Orquesta el flujo completo (formulario, captura, procesamiento)
+
+### Flujo de usuario paso a paso
+
+1. **Resumen de imágenes** → Botón **"Enviar a validación"**
+2. **Pantalla de procesamiento** → Spinner y mensaje "Validando identidad..."
+3. **Resultado**:
+   - Si aprobado: muestra mensaje de éxito y redirige al Home
+   - Si rechazado: muestra mensaje de rechazo y opciones de reintentar o volver al inicio
+
+### Notas sobre el endpoint y simulación
+
+- **Por defecto:** El endpoint real está **comentado** en `useValidation.js` y la app usa una simulación para desarrollo.
+- **Para usar el endpoint real:**
+  1. Abre `src/hooks/useValidation.js`
+  2. Comenta el bloque de simulación y descomenta el bloque de fetch real
+  3. Asegúrate de que la URL y los campos coincidan con la API
+- **Motivo:** Esto permite continuar el desarrollo y pruebas de la UI aunque el backend no esté disponible o retorne errores.
+- **Resultado simulado:** Puedes cambiar el valor de `approved` en el objeto `fakeResult` para probar ambos flujos (aprobado/rechazado).
+
+### Archivos relevantes
+
+- `src/hooks/useValidation.js`
+- `src/components/ProcessingScreen/ProcessingScreen.jsx`
+- `src/components/StartValidation/StartValidation.jsx`
+
+---

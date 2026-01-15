@@ -15,6 +15,9 @@ const useValidation = () => {
       setError(null);
       setSuccess(false);
 
+      // FORZAR ERROR PARA PRUEBA DE UI
+      throw new Error("Simulación de error en validación");
+
       //crear el form data para enviar las imagenes
       const formData = new FormData();
       formData.append("user_id", userId); // Agregar el campo user_id
@@ -68,8 +71,8 @@ const useValidation = () => {
           quality: {},
           ocr: {},
           pdf417: {},
-          biometric: {}
-        }
+          biometric: {},
+        },
       };
       setResult(fakeResult);
       setSuccess(true);
