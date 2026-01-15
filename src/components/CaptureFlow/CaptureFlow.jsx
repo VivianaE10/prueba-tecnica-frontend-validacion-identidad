@@ -35,8 +35,6 @@ export default function CaptureFlow({ onCancel, onSubmit }) {
     // Si es la última foto, no avances (quedarás en el paso 2, pero con la foto guardada)
   };
 
-  // ...
-
   // Verificar si todas las fotos están completas
   const allPhotosComplete = images.front && images.back && images.selfie;
 
@@ -89,19 +87,12 @@ export default function CaptureFlow({ onCancel, onSubmit }) {
           >
             Atrás
           </button>
-          {allPhotosComplete ? (
+          {allPhotosComplete && (
             <button
               className="btn btn-success"
               onClick={() => onSubmit(images)}
             >
               Enviar a validación
-            </button>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => setIndex((i) => i + 1)}
-            >
-              Siguiente
             </button>
           )}
         </div>

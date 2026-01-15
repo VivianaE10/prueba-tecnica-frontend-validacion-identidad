@@ -55,7 +55,9 @@ Interfaz inicial para iniciar el proceso de validación de identidad:
 
 ### Descripción general
 
-Flujo secuencial de captura de imágenes directamente desde la cámara del dispositivo. Después de validar el formulario inicial (ID + consentimiento), el usuario accede a una pantalla que le guía para capturar **3 fotografías obligatorias en orden**:
+Flujo secuencial de captura de imágenes directamente desde la cámara de la computadora (desktop) usando React Web. La aplicación está diseñada y probada para funcionar en navegadores modernos de escritorio que permitan el acceso a la cámara web.
+
+Después de validar el formulario inicial (ID + consentimiento), el usuario accede a una pantalla que le guía para capturar **3 fotografías obligatorias en orden**:
 
 1. **Cédula — Frente** (cámara trasera)
 2. **Cédula — Reverso** (cámara trasera)
@@ -234,16 +236,5 @@ Tras la validación, la app muestra una pantalla de resultado:
 ### Cómo probar ambos casos
 - Cambia el valor de `approved` en `useValidation.js` para alternar entre aprobado y rechazado.
 - Usa la línea de error para probar el manejo visual de errores.
-
----
-
-## 📦 Estructura de componentes
-
-- **StartValidation.jsx:** Orquesta todo el flujo.
-- **CaptureFlow.jsx:** Captura secuencial de imágenes.
-- **ProcessingScreen.jsx:** Pantalla de carga y validación.
-- **ResultScreen.jsx:** Muestra resultado y acciones.
-- **Home.jsx:** Pantalla final tras validación aprobada.
-- **useValidation.js:** Simula la respuesta del endpoint y permite probar ambos flujos.
 
 ---

@@ -17,7 +17,7 @@ export default function CameraStep({
     return () => {
       stop();
     };
-  }, [facingMode]);
+  }, [facingMode, start, stop]);
 
   //funcuon para tomar la foto
   const handleTake = () => {
@@ -33,12 +33,15 @@ export default function CameraStep({
     stop(); // Detén la cámara
     onCaptured(preview); // Luego notifica al padre
   };
-
+ 
+  const cameraAvailable =
+    typeof navigator !== "undefined" &&
+    navigator.mediaDevices &&
+    typeof navigator.mediaDevices.getUserMedia === "function";
+   
   return (
     <div>
       <h5>{label}</h5>
-
-      {/*Render condicional (si NO hay foto)*/}
       {!preview ? (
         <>
           <video
