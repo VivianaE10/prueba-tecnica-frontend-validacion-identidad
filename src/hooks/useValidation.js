@@ -8,6 +8,9 @@ const useValidation = () => {
   const [success, setSuccess] = useState(false);
   const [result, setResult] = useState(null);
 
+  // Para probar el manejo de errores en la UI, descomenta la siguiente línea:
+  // throw new Error("Simulación de error en validación");
+
   //Función para enviar imágenes al endpoint
   const validateIdentity = useCallback(async (userId, images) => {
     try {
@@ -15,8 +18,8 @@ const useValidation = () => {
       setError(null);
       setSuccess(false);
 
-      // FORZAR ERROR PARA PRUEBA DE UI
-      throw new Error("Simulación de error en validación");
+      // Descomenta esta liena par forzar error y ver la interfaz de manejo de errores
+      // throw new Error("Simulación de error en validación");
 
       //crear el form data para enviar las imagenes
       const formData = new FormData();
@@ -61,7 +64,7 @@ const useValidation = () => {
       // --- FIN LLAMADA REAL ---
       */
 
-      // --- SIMULACIÓN DE RESPUESTA PARA DESARROLLO ---
+      // simualndo JSON de respuesta del endpoint
       await new Promise((resolve) => setTimeout(resolve, 3000));
       const fakeResult = {
         approved: true, // Cambia a false para probar el flujo de rechazo
