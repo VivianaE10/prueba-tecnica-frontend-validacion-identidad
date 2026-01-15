@@ -194,10 +194,56 @@ Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload 
 - **Motivo:** Esto permite continuar el desarrollo y pruebas de la UI aunque el backend no esté disponible o retorne errores.
 - **Resultado simulado:** Puedes cambiar el valor de `approved` en el objeto `fakeResult` para probar ambos flujos (aprobado/rechazado).
 
-### Archivos relevantes
+---
+## ⚠️ NOTAS IMPORTANTES PARA PRUEBAS Y DESARROLLO
 
-- `src/hooks/useValidation.js`
-- `src/components/ProcessingScreen/ProcessingScreen.jsx`
-- `src/components/StartValidation/StartValidation.jsx`
+> **Nota 1:**
+> En `src/hooks/useValidation.js` puedes **descomentar la línea 18** para forzar y visualizar el manejo de errores en la interfaz de validación.
+> ```js
+> // throw new Error("Simulación de error en validación");
+> ```
+
+> **Nota 2:**
+> En el mismo archivo, **cambia el valor de `approved` a `false` en la línea 70** para probar el flujo de resultado NO aprobado (rechazado).
+> ```js
+> const fakeResult = {
+>   approved: false, // Cambia a true para el caso aprobado
+>   ...
+> }
+> ```
+
+> **Nota 3:**
+> El endpoint real proporcionado (`https://mubis.app/api/cedula/validate-complete`) devolvía error 422 al enviar los datos, por lo que se implementó una simulación en el código para poder probar y mostrar todo el flujo de la aplicación. Puedes ver el error en la siguiente imagen:
+> ![Error 422](https://i.imgur.com/2QwQw2b.png)
+> Por eso, el código está preparado para alternar entre simulación y endpoint real según disponibilidad.
+
+---
+
+## 🧠 Ejecución 4 – Manejo de resultado y Home
+
+### Descripción general
+
+Tras la validación, la app muestra una pantalla de resultado:
+- **Aprobado:** Mensaje de éxito y opción de ir al Home.
+- **Rechazado:** Mensaje claro y amigable, opción de reintentar o volver al inicio (NO muestra Home).
+
+#### Componentes clave
+- `ResultScreen.jsx`: Muestra el resultado y las acciones según el caso.
+- `Home.jsx`: Pantalla final con mensaje de bienvenida y datos del resultado.
+
+### Cómo probar ambos casos
+- Cambia el valor de `approved` en `useValidation.js` para alternar entre aprobado y rechazado.
+- Usa la línea de error para probar el manejo visual de errores.
+
+---
+
+## 📦 Estructura de componentes
+
+- **StartValidation.jsx:** Orquesta todo el flujo.
+- **CaptureFlow.jsx:** Captura secuencial de imágenes.
+- **ProcessingScreen.jsx:** Pantalla de carga y validación.
+- **ResultScreen.jsx:** Muestra resultado y acciones.
+- **Home.jsx:** Pantalla final tras validación aprobada.
+- **useValidation.js:** Simula la respuesta del endpoint y permite probar ambos flujos.
 
 ---
