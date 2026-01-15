@@ -238,3 +238,14 @@ Tras la validación, la app muestra una pantalla de resultado:
 - Usa la línea de error para probar el manejo visual de errores.
 
 ---
+
+## 🪝 Hooks utilizados
+
+- useState
+- useEffect
+- useRef
+- useCallback
+
+### Hooks personalizados
+- useCamera: gestión de cámara y captura de imágenes.
+- useValidation: simulación y manejo de validación de identidad.
