@@ -93,12 +93,10 @@ const StartValidation = () => {
                 type="text"
                 id="userId"
                 className="form-control form-control-lg"
-                placeholder="Ingrese su id"
                 value={userId}
-                onChange={(e) => {
-                  setUserId(e.target.value);
-                  setError(null);
-                }}
+                disabled
+                readOnly
+                style={{ backgroundColor: '#e9ecef' }}
               />
             </div>
             <div className="form-check mb-4">

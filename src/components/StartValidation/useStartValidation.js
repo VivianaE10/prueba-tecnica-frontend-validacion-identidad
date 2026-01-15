@@ -11,10 +11,6 @@ const useStartValidation = () => {
 
   // Validación inicial: solo ID + consentimiento (para abrir CaptureFlow)
   const handleStartValidation = () => {
-    if (userId !== "USR-SELLER-1C701FE1") {
-      setError("El ID de usuario no es válido.");
-      return false;
-    }
     if (!consentGiven) {
       setError("Debe aceptar el consentimiento para continuar.");
       return false;

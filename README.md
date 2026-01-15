@@ -48,10 +48,11 @@ Interfaz inicial para iniciar el proceso de validación de identidad:
 
 ## Cómo probar
 
--Ejecutar npm run dev y abrir la aplicación.
--Enviar sin ID → debe mostrarse el mensaje: "Por favor, ingrese su ID de usuario."
--Ingresar ID sin marcar consentimiento → mostrar "Debe aceptar el consentimiento para continuar."
--Ingresar ID y marcar consentimiento → iniciar flujo de validación (placeholder).
+Ejecutar `npm run dev` y abrir la aplicación.
+El campo de ID de usuario aparecerá con el valor quemado `USR-SELLER-1C701FE1` y estará deshabilitado (no editable), solo como referencia.
+Para iniciar la validación, únicamente debes marcar el checkbox de consentimiento y presionar el botón. El ID no se valida, solo el consentimiento.
+
+Esto cumple con el requerimiento original: el ID es el que te proporcionaron y queda como dato quemado, pero la validación solo depende del consentimiento.
 
 ## Archivos relevantes
 
