@@ -17,14 +17,29 @@ const useValidation = () => {
 
       //crear el form data para enviar las imagenes
       const formData = new FormData();
-      formData.append("user_id", userId);
+      formData.append("user_id", userId); // Agregar el campo user_id
 
       // Convertir base64 a Blob (archivo)
       // images.front, images.back, images.selfie son dataURLs (base64)
-      formData.append("frente", dataURLtoBlob(images.front), "frente.jpg");
-      formData.append("reverso", dataURLtoBlob(images.back), "reverso.jpg");
       formData.append("selfie", dataURLtoBlob(images.selfie), "selfie.jpg");
+      formData.append(
+        "cedula_frente",
+        dataURLtoBlob(images.front),
+        "frente.jpg"
+      );
+      formData.append(
+        "cedula_reverso",
+        dataURLtoBlob(images.back),
+        "reverso.jpg"
+      );
 
+      // DEBUG: Mostrar el contenido del FormData en consola
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ":", pair[1]);
+      }
+
+      // --- LLAMADA REAL AL ENDPOINT (DESACTIVADA PARA SIMULACIÓN) ---
+      /*
       const ENDPOINT_URL = "https://mubis.app/api/cedula/validate-complete";
 
       //realizar fetch al endpoint
@@ -40,6 +55,26 @@ const useValidation = () => {
       setResult(data.result); //guardar el resultado completo
       setSuccess(true);
       return data.result; // devolver el resultado
+      // --- FIN LLAMADA REAL ---
+      */
+
+      // --- SIMULACIÓN DE RESPUESTA PARA DESARROLLO ---
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const fakeResult = {
+        approved: true, // Cambia a false para probar el flujo de rechazo
+        score: 85,
+        risk_level: "bajo",
+        details: {
+          quality: {},
+          ocr: {},
+          pdf417: {},
+          biometric: {}
+        }
+      };
+      setResult(fakeResult);
+      setSuccess(true);
+      return fakeResult;
+      // --- FIN SIMULACIÓN ---
     } catch (error) {
       setError(error.message || "Error de validación");
       setSuccess(false);

@@ -15,8 +15,6 @@ const StartValidation = () => {
     handleStartValidation,
     error,
     setError,
-    setCapturedImages,
-    setShowProcessing,
   } = useStartValidation();
 
   //conectaste el formulario con el flujo de captura

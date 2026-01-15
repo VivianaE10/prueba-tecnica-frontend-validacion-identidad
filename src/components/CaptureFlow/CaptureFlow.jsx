@@ -40,6 +40,7 @@ export default function CaptureFlow({ onCancel, onSubmit }) {
   // Verificar si todas las fotos están completas
   const allPhotosComplete = images.front && images.back && images.selfie;
 
+  const currentStep = steps[index] || steps[steps.length - 1];
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
       <div
@@ -68,12 +69,12 @@ export default function CaptureFlow({ onCancel, onSubmit }) {
           <>
             <div className="mb-3">
               Paso {index + 1} de {steps.length}:{" "}
-              <strong>{steps[index].label}</strong>
+              <strong>{currentStep.label}</strong>
             </div>
             <CameraStep
               key={index}
-              label={steps[index].label}
-              facingMode={steps[index].facingMode}
+              label={currentStep.label}
+              facingMode={currentStep.facingMode}
               onCaptured={handleCaptured}
               onCancel={onCancel}
             />

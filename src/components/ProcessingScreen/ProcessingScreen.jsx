@@ -49,5 +49,6 @@ export default function ProcessingScreen({
       </div>
     );
   }
-  return null; // No renderizar nada si está en éxito y esperando callback
+  // Si no está cargando ni hay error, no renderiza nada
+  return null;
 }
