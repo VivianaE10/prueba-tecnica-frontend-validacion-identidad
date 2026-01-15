@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import useStartValidation from "./useStartValidation";
 import CaptureFlow from "../CaptureFlow/CaptureFlow";
 import ProcessingScreen from "../ProcessingScreen/ProcessingScreen";
+import ResultScreen from "../ResultScreen/ResultScreen";
+import Home from "../Home/Home";
 import { useState } from "react";
 
 const StartValidation = () => {
@@ -21,6 +23,8 @@ const StartValidation = () => {
   const [showCapture, setShowCapture] = useState(false);
   const [showProcessing, setShowProcessing] = useState(false);
   const [capturedImages, setCapturedImages] = useState(null);
+  const [validationResult, setValidationResult] = useState(null);
+  const [showHome, setShowHome] = useState(false);
 
   //funcion para validar que el usuario haya llenado el formulario
   const handleSubmit = (e) => {
@@ -34,14 +38,35 @@ const StartValidation = () => {
 
   return (
     <>
-      {showProcessing ? (
+      {showHome ? (
+        <Home result={validationResult} />
+      ) : validationResult ? (
+        <ResultScreen
+          result={validationResult}
+          onRetry={() => {
+            setValidationResult(null);
+            setShowCapture(true);
+          }}
+          onGoHome={() => {
+            if (validationResult?.approved) {
+              setShowHome(true); // Solo si aprobado, muestra el Home
+            } else {
+              setValidationResult(null);
+              setShowCapture(false);
+              setShowProcessing(false);
+              setShowHome(false); // Si rechazado, vuelve al formulario
+            }
+          }}
+        />
+      ) : showProcessing ? (
         <ProcessingScreen
           userId={userId}
           images={capturedImages}
           onValidationComplete={(result) => {
             setShowProcessing(false);
             setShowCapture(false);
-            // Aquí puedes manejar el resultado (aprobado/rechazado)
+            setValidationResult(result);
+            setShowHome(false);
           }}
         />
       ) : showCapture ? (
