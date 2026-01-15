@@ -48,11 +48,11 @@ Interfaz inicial para iniciar el proceso de validación de identidad:
 
 ## Cómo probar
 
-Ejecutar `npm run dev` y abrir la aplicación.
-El campo de ID de usuario aparecerá con el valor quemado `USR-SELLER-1C701FE1` y estará deshabilitado (no editable), solo como referencia.
+Ejecuta `npm run dev` y abre la aplicación.
+El campo de ID de usuario aparece con el valor quemado `USR-SELLER-1C701FE1`, que me proporcionaron para la prueba técnica, y está deshabilitado (no editable), solo como referencia.
 Para iniciar la validación, únicamente debes marcar el checkbox de consentimiento y presionar el botón. El ID no se valida, solo el consentimiento.
 
-Esto cumple con el requerimiento original: el ID es el que te proporcionaron y queda como dato quemado, pero la validación solo depende del consentimiento.
+Esto cumple con el requerimiento original: el ID es el que me proporcionaron y queda como dato quemado, pero la validación solo depende del consentimiento.
 
 ## Archivos relevantes
 
@@ -88,11 +88,11 @@ Al completar las 3 fotos, se muestra un **resumen** con confirmación de todas l
 - **Ubicación:** `src/hooks/useCamera.js`
 - **Responsabilidad:** Gestiona toda la lógica de la cámara
 - **Funciones principales:**
-  - `start(constraints)` — inicia el stream de video usando `navigator.mediaDevices.getUserMedia()`
-  - `stop()` — detiene el stream y libera la cámara
-  - `capture()` — captura el fotograma actual desde el video y devuelve un DataURL (base64)
-  - `ready` — estado que indica si la cámara está lista para capturar
-  - `error` — mensajes de error (ej. permisos denegados, cámara no disponible)
+  - `start(constraints)` — inicia el stream de video (acceso a la cámara)
+  - `stop()` — detiene el stream (libera la cámara)
+  - `capture()` — toma una foto (devuelve imagen en base64)
+  - `ready` — indica si la cámara está lista para capturar (true/false)
+  - `error` — contiene el mensaje de error si ocurre algún problema (por ejemplo, permisos denegados o cámara no disponible)
 
 #### 2. **CameraStep.jsx** (Componente UI de un paso)
 
@@ -196,13 +196,15 @@ Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload 
 
 ### Notas sobre el endpoint y simulación
 
-- **Por defecto:** El endpoint real está **comentado** en `useValidation.js` y la app usa una simulación para desarrollo.
-- **Para usar el endpoint real:**
-  1. Abre `src/hooks/useValidation.js`
-  2. Comenta el bloque de simulación y descomenta el bloque de fetch real
-  3. Asegúrate de que la URL y los campos coincidan con la API
-- **Motivo:** Esto permite continuar el desarrollo y pruebas de la UI aunque el backend no esté disponible o retorne errores.
-- **Resultado simulado:** Puedes cambiar el valor de `approved` en el objeto `fakeResult` para probar ambos flujos (aprobado/rechazado).
+🔒 **Importante:** El endpoint real que me proporcionaron para la prueba técnica es:
+`https://mubis.app/api/cedula/validate-complete`
+Sin embargo, este endpoint no se deja consumir y devuelve error 422 al enviar los datos. Por eso, implementé una simulación en el código para poder mostrar el flujo completo y las instrucciones de la lógica.
+
+La aplicación está configurada para usar únicamente la simulación, lo que permite probar el flujo de validación y los distintos resultados (aprobado/rechazado) sin depender del backend.
+
+Si quieres probar ambos casos, solo debes cambiar el valor de `approved` en el objeto `fakeResult` dentro de `src/hooks/useValidation.js`.
+
+No recomiendo intentar consumir el endpoint real, ya que no responde correctamente y genera errores.
 
 ---
 
@@ -226,9 +228,7 @@ Tras capturar las 3 imágenes y confirmar el resumen, la app prepara el payload 
 > ```
 
 > **Nota 3:**
-> El endpoint real proporcionado (`https://mubis.app/api/cedula/validate-complete`) devolvía error 422 al enviar los datos, por lo que se implementó una simulación en el código para poder probar y mostrar todo el flujo de la aplicación. Puedes ver el error en la siguiente imagen:
-> ![Error 422](https://i.imgur.com/2QwQw2b.png)
-> Por eso, el código está preparado para alternar entre simulación y endpoint real según disponibilidad.
+> El endpoint real que me proporcionaron (`https://mubis.app/api/cedula/validate-complete`) devolvía error 422 al enviar los datos, por lo que implementé una simulación en el código para poder probar y mostrar todo el flujo de la aplicación. Si la imagen del error no se visualiza, simplemente ten en cuenta que el error 422 impide consumir el endpoint y por eso la simulación es necesaria.
 
 ---
 
