@@ -4,7 +4,7 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CameraStep from "./CameraStep";
 
-export default function CaptureFlow({ onFinish, onCancel }) {
+export default function CaptureFlow({ onCancel, onSubmit }) {
   //Definición los 3  pasos
   const steps = [
     {
@@ -35,13 +35,7 @@ export default function CaptureFlow({ onFinish, onCancel }) {
     // Si es la última foto, no avances (quedarás en el paso 2, pero con la foto guardada)
   };
 
-  //Funcion para finalizar el flujo de captura
-  const handleFinish = () => {
-    if (!images.front || !images.back || !images.selfie) {
-      return alert("Por favor capturare las 3 imagenes requeridas");
-    }
-    onFinish(images);
-  };
+  // ...
 
   // Verificar si todas las fotos están completas
   const allPhotosComplete = images.front && images.back && images.selfie;
@@ -54,7 +48,7 @@ export default function CaptureFlow({ onFinish, onCancel }) {
       >
         <h4 className="mb-3 text-center">Captura de imágenes</h4>
 
-        {allPhotosComplete ? (
+        {allPhotosComplete ? ( //muestro el resumen si ya estan todas las fotos
           <div>
             <div className="alert alert-success mb-3">
               ✅ Las 3 imágenes han sido capturadas correctamente.
@@ -95,12 +89,11 @@ export default function CaptureFlow({ onFinish, onCancel }) {
             Atrás
           </button>
           {allPhotosComplete ? (
-            <button className="btn btn-success" onClick={handleFinish}>
+            <button
+              className="btn btn-success"
+              onClick={() => onSubmit(images)}
+            >
               Enviar a validación
-            </button>
-          ) : index === steps.length - 1 ? (
-            <button className="btn btn-success" onClick={handleFinish}>
-              Completar
             </button>
           ) : (
             <button

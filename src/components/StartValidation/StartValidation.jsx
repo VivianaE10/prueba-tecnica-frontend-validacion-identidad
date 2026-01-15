@@ -14,9 +14,8 @@ const StartValidation = () => {
     handleStartValidation,
     error,
     setError,
-    setFrontImage,
-    setBackImage,
-    setSelfieImage,
+    setCapturedImages,
+    setShowProcessing,
   } = useStartValidation();
 
   //conectaste el formulario con el flujo de captura
@@ -36,13 +35,9 @@ const StartValidation = () => {
     <>
       {showCapture ? ( // hace que la camara no se muestre todavia antes de llenar las validaciones del formulario
         <CaptureFlow
-          onFinish={(images) => {
-            setFrontImage(images.front);
-            setBackImage(images.back);
-            setSelfieImage(images.selfie);
-            console.log("Imágenes capturadas:", images);
-            alert("Validación completada con éxito.");
-            setShowCapture(false);
+          onSubmit={(images) => {
+            setCapturedImages(images);
+            setShowProcessing(true);
           }}
           onCancel={() => setShowCapture(false)}
         />
