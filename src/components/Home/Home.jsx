@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 const Home = ({ result }) => (
   <div
     className="container d-flex flex-column min-vh-100"
@@ -39,6 +40,9 @@ const Home = ({ result }) => (
           </p>
         </div>
         <div className="mb-3 text-start">
+          <div className="alert alert-info p-2 mb-2">
+            <strong>ID de usuario:</strong> {result?.userId ?? "-"}
+          </div>
           <strong>Score:</strong> {result?.score ?? "-"} <br />
           <strong>Nivel de riesgo:</strong> {result?.risk_level ?? "-"}
         </div>

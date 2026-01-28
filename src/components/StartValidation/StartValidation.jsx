@@ -94,9 +94,10 @@ const StartValidation = () => {
                 id="userId"
                 className="form-control form-control-lg"
                 value={userId}
-                disabled
-                readOnly
-                style={{ backgroundColor: "#e9ecef" }}
+                onChange={e => setUserId(e.target.value)}
+                placeholder="Ej: USR-12345 o tu nombre"
+                autoFocus
+                required
               />
             </div>
             <div className="form-check mb-4">
