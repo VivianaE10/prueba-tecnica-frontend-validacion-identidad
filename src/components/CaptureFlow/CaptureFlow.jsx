@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CameraStep from "./CameraStep";
+import CameraStep from "./cameraStep";
 
 export default function CaptureFlow({ onCancel, onSubmit }) {
   //Definición los 3  pasos

@@ -33,16 +33,20 @@ export default function CameraStep({
     stop(); // Detén la cámara
     onCaptured(preview); // Luego notifica al padre
   };
- 
+
   const cameraAvailable =
     typeof navigator !== "undefined" &&
     navigator.mediaDevices &&
     typeof navigator.mediaDevices.getUserMedia === "function";
-   
+
   return (
     <div>
       <h5>{label}</h5>
-      {!preview ? (
+      {!cameraAvailable ? (
+        <div className="alert alert-danger mt-3">
+          🚫 Tu navegador no soporta acceso a la cámara o no está disponible.
+        </div>
+      ) : !preview ? (
         <>
           <video
             ref={videoRef}

@@ -31,12 +31,12 @@ const useValidation = () => {
       formData.append(
         "cedula_frente",
         dataURLtoBlob(images.front),
-        "frente.jpg"
+        "frente.jpg",
       );
       formData.append(
         "cedula_reverso",
         dataURLtoBlob(images.back),
-        "reverso.jpg"
+        "reverso.jpg",
       );
 
       // DEBUG: Mostrar el contenido del FormData en consola
